@@ -1,11 +1,44 @@
 import React, {Component} from 'react';
-import {View, Text, TextInput, StyleSheet, Button,Alert} from 'react-native'
+import {View, Text, TextInput, StyleSheet, Button,LogBox} from 'react-native'
 
 class Login extends Component<any> {
+    state={
+        account:'',
+        accountTip:'',
+        password:'',
+        passwordTip:''
+    }
 
     handleToHome=()=>{
-        const {navigation} = this.props;
-        navigation.navigate('home')
+        const {account,password}=this.state;
+        if(!account){
+            this.setState({
+                accountTip:'账号不能为空'
+            })
+        }
+        if(!password){
+            this.setState({
+                passwordTip:'密码不能为空'
+            })
+        }
+        if(!account||!password){
+            return
+        }
+        debugger
+
+        fetch('http://jirancloud.com:2083/api/today', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(res=>{
+        })
+
+
+
+        // const {navigation} = this.props;
+        // navigation.navigate('home')
     }
 
     handleToRegister=()=>{
@@ -13,7 +46,22 @@ class Login extends Component<any> {
         navigation.navigate('register')
     }
 
+    handleAccountChange=(value:string)=>{
+        this.setState({
+            account:value,
+            accountTip:!!value?'':'账号不能为空'
+        })
+    }
+
+    handlePasswordChange=(value:string)=>{
+        this.setState({
+            password:value,
+            passwordTip:!!value?'':'密码不能为空'
+        })
+    }
+
     render() {
+        const {accountTip,passwordTip}=this.state;
         return (
             <View style={styles.container}>
                 <View style={styles.app_name}>
@@ -23,10 +71,13 @@ class Login extends Component<any> {
                 <View style={styles.login}>
                     <View style={styles.form_item}>
                         <Text style={styles.form_label}>用户名：</Text>
-                        <TextInput style={styles.input}/></View>
+                        <TextInput style={styles.input} onChangeText={this.handleAccountChange}/>
+                        {accountTip?<Text style={styles.tip}>{accountTip}</Text>:null}
+                    </View>
                     <View style={styles.form_item}>
                         <Text style={styles.form_label}>密码：</Text>
-                        <TextInput style={styles.input}/>
+                        <TextInput style={styles.input} onChangeText={this.handlePasswordChange}/>
+                        {passwordTip?<Text style={styles.tip}>{passwordTip}</Text>:null}
                     </View>
                 </View>
                 <View  style={styles.register}>
@@ -99,6 +150,9 @@ const styles = StyleSheet.create({
     red: {
         color: 'red',
     },
+    tip:{
+        color:'#F96060'
+    }
 });
 
 

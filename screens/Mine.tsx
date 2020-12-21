@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
         borderColor:'#F9F9F9',
     },
     logout: {
-        position: "absolute",
-        bottom: 10,
+        // position: "absolute",
+        // bottom: 60,
         width: '100%',
         paddingLeft: 24,
         paddingRight: 24,
