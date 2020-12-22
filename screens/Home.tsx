@@ -2,16 +2,25 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native'
 import {classnames} from '../utils'
 import TaskCheckItem from "../components/TaskCheckItem";
+import {setLocalData, getLocalData} from "../utils";
 
-class Home extends Component {
+class Home extends Component<any> {
     state = {
         tabIndex: 1,
-        repeatData:[{},{},{}],
-        noRepeatData:[]
+        repeatData: [{}, {}, {}],
+        noRepeatData: []
+    }
+
+    async componentDidMount() {
+        const token =await getLocalData('token')
+        if (!token) {
+            this.props.navigation.navigate('login')
+        }
+
     }
 
     render() {
-        const {tabIndex,repeatData,noRepeatData} = this.state
+        const {tabIndex, repeatData, noRepeatData} = this.state
         return (
 
             <View style={styles.header}>
@@ -46,14 +55,14 @@ class Home extends Component {
                         项目
                     </Text>
                 </View>
-                {tabIndex===1&&<View>
+                {tabIndex === 1 && <View>
                     <Text style={styles.task_info}>1/3-120分钟</Text>
-                    {repeatData.map((item,index)=> <TaskCheckItem key={index} data={item} />)}
+                    {repeatData.map((item, index) => <TaskCheckItem key={index} data={item}/>)}
                 </View>}
-                {tabIndex===2&&<View>
-                <Text style={styles.task_info}>1/4-120分钟</Text>
-                {noRepeatData.map((item,index)=> <TaskCheckItem key={index} data={item} />)}
-            </View>}
+                {tabIndex === 2 && <View>
+                    <Text style={styles.task_info}>1/4-120分钟</Text>
+                    {noRepeatData.map((item, index) => <TaskCheckItem key={index} data={item}/>)}
+                </View>}
             </View>
 
         );

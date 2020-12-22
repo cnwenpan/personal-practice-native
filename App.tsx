@@ -1,7 +1,8 @@
 import {StatusBar} from 'expo-status-bar';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text} from 'react-native'
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+// @ts-ignore
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -51,7 +52,7 @@ function HomeTabs() {
                     } else if (route.name === 'Mine') {
                         label = '我的'
                     }
-                    return <Text>{label}</Text>;
+                    return <Text style={{color:color}}>{label}</Text>;
                 })
             })}
             tabBarOptions={{
@@ -69,10 +70,10 @@ function HomeTabs() {
 }
 
 export default function App() {
+
     const isLoadingComplete = useCachedResources();
 
     const Stack = createStackNavigator();
-
     if (!isLoadingComplete) {
         return null;
     } else {

@@ -1,3 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 interface styleObject{
     style:object,
     status:boolean
@@ -16,4 +19,19 @@ export const classnames=(styles:Array<styleObject>)=>{
 
     })
    return styleResult;
+}
+
+export const getLocalData = async (key:string) => {
+    try {
+        const value = await AsyncStorage.getItem(key)
+        if(value !== null) {
+            return value
+        }
+    } catch(e) {
+        return ''
+    }
+}
+
+export const setLocalData= (key:string,value:string)=>{
+      return AsyncStorage.setItem(key,value)
 }

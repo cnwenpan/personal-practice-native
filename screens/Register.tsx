@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, TextInput, StyleSheet, Button, Alert} from 'react-native'
+// @ts-ignore
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 class Register extends Component<any> {
@@ -47,7 +48,7 @@ class Register extends Component<any> {
                 </View>
                 <View style={{marginTop: 70}}>
                     <Button
-                        title="确认"
+                        title="保存"
                         color="#F96060"
                         onPress={this.handleSave}
                     />
