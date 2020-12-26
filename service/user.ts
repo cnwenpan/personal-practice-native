@@ -8,3 +8,4 @@ export const login =(data:object)=>{
         data
     })
 }
+

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "personal-practice-native",
+    "name": "修炼自己",
     "slug": "personal-practice-native",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -25,7 +25,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "personal.practice"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

@@ -3,31 +3,24 @@ import {StyleSheet} from "react-native";
 import Checkbox from 'expo-checkbox';
 
 class CheckBox extends Component<any> {
-    state = {
-        isChecked: false
-    }
-
     handleChange = (value: any) => {
-        console.log(value)
+
         const {
             onChange = () => {
             }
         } = this.props;
-        this.setState({
-            isChecked: value
-        })
+
         onChange(value)
     }
 
     render() {
-        const {isChecked} = this.state;
-        const {style} = this.props;
+        const {style,value} = this.props;
         return (
             <Checkbox
                 style={style}
-                value={isChecked}
+                value={value}
                 onValueChange={this.handleChange}
-                color={isChecked ? '#4630EB' : undefined}
+                color={value ? '#4630EB' : undefined}
             />
         );
     }

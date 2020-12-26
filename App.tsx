@@ -16,7 +16,8 @@ import Register from "./screens/Register";
 import Program from './screens/Program'
 import Diary from './screens/Diary'
 import Mine from './screens/Mine'
-
+import Editor from "./screens/Editor";
+import FocusModal from "./screens/FocusModal";
 
 function HomeTabs() {
     const Tab = createBottomTabNavigator();
@@ -52,7 +53,7 @@ function HomeTabs() {
                     } else if (route.name === 'Mine') {
                         label = '我的'
                     }
-                    return <Text style={{color:color}}>{label}</Text>;
+                    return <Text style={{color: color}}>{label}</Text>;
                 })
             })}
             tabBarOptions={{
@@ -83,7 +84,6 @@ export default function App() {
 
                     <Stack.Navigator>
                         <Stack.Screen name="home" component={HomeTabs} options={{
-                            title: '注册',
                             header: () => null
                         }}/>
                         <Stack.Screen name="login" component={Login} options={
@@ -102,6 +102,14 @@ export default function App() {
 
                         <Stack.Screen name="register" component={Register} options={{
                             title: '注册',
+                            header: () => null
+                        }}/>
+                        <Stack.Screen name="editor" component={Editor} options={{
+                            title: '编辑',
+                            header: () => null
+                        }}/>
+                        <Stack.Screen name="focusModal" component={FocusModal} options={{
+                            title: '专注模式',
                             header: () => null
                         }}/>
                     </Stack.Navigator>
