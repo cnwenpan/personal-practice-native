@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
-import {View, Text, Button, StyleSheet, TextInput} from 'react-native';
+import {View, Text, Button, StyleSheet, TextInput,ToastAndroid} from 'react-native';
 import {CommonActions} from '@react-navigation/native';
 // @ts-ignore
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as Api from '../service/diary'
+import HTML from "react-native-render-html";
+import moment from "moment";
 
 class Editor extends Component<any> {
     state = {
-        diaryText: ''
+        diaryText: '',
+        visible:false,
     }
 
     handleBack = () => {
@@ -31,13 +34,22 @@ class Editor extends Component<any> {
     handleSave = () => {
         const {params} = this.props.route;
         const {diaryText} = this.state;
+        ToastAndroid.showWithGravity(
+            'All Your Base Are Belong To Us',
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER
+        );
         if (params.diaryId) {
             Api.update({id: params.diaryId, data: diaryText}).then(res => {
-
+                // this.setState({
+                //     visible:false
+                // })
             })
         } else {
             Api.add({taskId: params.id, data: diaryText}).then(res => {
-
+                // this.setState({
+                //     visible:false
+                // })
             })
         }
     }
@@ -45,20 +57,20 @@ class Editor extends Component<any> {
 
     render() {
         const {params} = this.props.route
-        const {diaryText}=this.state;
+        const {diaryText,visible}=this.state;
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
 
                     <Ionicons onPress={this.handleBack} style={styles.back} name="md-arrow-back"/>
 
-                    <Text style={styles.title}>日记编辑</Text>
+                    <Text style={styles.title}>任务细节</Text>
                 </View>
                 <View style={styles.content}>
                     <View style={styles.pertain_info}>
 
                         <Text style={styles.pertain_info_text}>
-                            里程牌:{params.landmarksName.substr(0, 13)}
+                            里程牌:{params.landmarksName}
                         </Text>
                         <Text style={styles.pertain_info_text}>
                             项目：{params.programName}
@@ -71,35 +83,47 @@ class Editor extends Component<any> {
                     </View>
                     <View style={styles.text_input}>
                         <Text style={{color: '#9e9e9e'}}>内容：</Text>
-                        <TextInput
-                            style={{
-                                borderColor: '#eaeaea',
-                                borderWidth: 1,
-                                borderRadius: 5,
-                                marginTop: 10
-                            }}
-                            multiline
-                            numberOfLines={10}
-                            editable
-                            maxLength={40}
-                            onChangeText={text => this.onChangeText(text)}
-                            value={diaryText}
-                        >
+                        <HTML source={{html: params.description}}/>
+                        {/*<TextInput*/}
+                        {/*    style={{*/}
+                        {/*        borderColor: '#eaeaea',*/}
+                        {/*        borderWidth: 1,*/}
+                        {/*        borderRadius: 5,*/}
+                        {/*        marginTop: 10,*/}
+                        {/*        textAlignVertical:'top',*/}
+                        {/*        padding:4,*/}
+                        {/*    }}*/}
+                        {/*    multiline*/}
+                        {/*    numberOfLines={10}*/}
+                        {/*    editable*/}
+                        {/*    maxLength={40}*/}
+                        {/*    onChangeText={text => this.onChangeText(text)}*/}
+                        {/*    value={diaryText}*/}
+                        {/*>*/}
 
-                        </TextInput>
+                        {/*</TextInput>*/}
 
                     </View>
-                    <View style={{
-                        marginLeft: 25,
-                        marginRight: 25
-                    }}>
-                        <Button
-                            title="保存"
-                            color="#F96060"
-                            onPress={this.handleSave}
-                        />
+
+
+                    {/*<View style={{*/}
+                    {/*    marginLeft: 25,*/}
+                    {/*    marginRight: 25*/}
+                    {/*}}>*/}
+                    {/*    <Button*/}
+                    {/*        title="保存"*/}
+                    {/*        color="#F96060"*/}
+                    {/*        onPress={this.handleSave}*/}
+                    {/*    />*/}
+                    {/*</View>*/}
+
+                    <View style={styles.due_time}>
+                        <Text style={{lineHeight:28}}>截止日期：</Text>
+                        <Text style={styles.show_time}>{moment(params.start_time).format('YYYY-MM-DD')}</Text>
+                        <Text style={{lineHeight:28,marginLeft:10}}>进度：{params.progress}%</Text>
                     </View>
                 </View>
+
 
             </View>
         );
@@ -132,21 +156,22 @@ const styles = StyleSheet.create({
     },
     content: {
         marginTop: -40,
-        paddingBottom: 60,
+        // paddingBottom: 60,
         backgroundColor: '#ffffff',
         borderRadius: 5,
-        width: 343,
+        // width: 343,
         marginLeft: 32,
+        marginRight:32,
     },
     pertain_info: {
-        flexDirection: 'row',
-        justifyContent: "space-between",
+        // flexDirection: 'row',
+        // justifyContent: "space-between",
         marginLeft: 24,
         marginRight: 24,
-        marginTop: 32,
+        marginTop: 10,
     },
     pertain_info_text: {
-        lineHeight: 48,
+        lineHeight: 28,
         fontSize: 14,
     },
     content_title: {
@@ -154,12 +179,31 @@ const styles = StyleSheet.create({
         lineHeight: 66,
         paddingLeft: 25,
         marginTop: 20,
+
     },
     text_input: {
         paddingLeft: 25,
         paddingRight: 25,
         paddingTop: 16,
-        paddingBottom: 25,
+        // paddingBottom: 25,
+    },
+    due_time:{
+        backgroundColor: '#f4f4f4',
+        lineHeight: 66,
+        // paddingLeft: 25,
+        marginTop: 20,
+        flexDirection: "row",
+        paddingTop:20,
+    },
+    show_time:{
+        height:28,
+        lineHeight:28,
+        borderRadius:4,
+        fontSize:14,
+        color:'#ffffff',
+        backgroundColor:'#6074F9',
+        paddingLeft:10,
+        paddingRight:10,
     },
 })
 

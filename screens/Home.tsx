@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, ScrollView, RefreshControl,} from 'react-native'
+import moment from 'moment'
 import {classnames} from '../utils'
 import TaskCheckItem from "../components/TaskCheckItem";
 import {setLocalData, getLocalData} from "../utils";
@@ -60,7 +61,7 @@ class Home extends Component<any> {
                         color: '#ffffff',
                         fontSize: 20,
                         lineHeight: 40,
-                    }}>今日任务</Text>
+                    }}>{moment(new Date()).format('YYYY-MM-DD')}</Text>
                 </View>
 
 
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
     },
     tab_bar: {
         backgroundColor: '#F96060',
-        paddingTop: 27,
+        paddingTop: 4,
         height: 'auto',
         flexDirection: "row",
         justifyContent: "space-around",
@@ -143,7 +144,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2,
     },
     task_container: {
-        paddingBottom: 80,
+        paddingBottom: 180,
     },
     task_info: {
         color: '#9a9a9a',

@@ -35,3 +35,6 @@ export const getLocalData = async (key:string) => {
 export const setLocalData= (key:string,value:string)=>{
       return AsyncStorage.setItem(key,value)
 }
+export const removeLocalData= (key:string)=>{
+    return AsyncStorage.removeItem(key)
+}

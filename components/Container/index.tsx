@@ -16,7 +16,8 @@ const styles=StyleSheet.create({
         paddingLeft:24,
         paddingRight:24,
         paddingTop:48,
-        minHeight:'100%'
+        minHeight:'100%',
+        backgroundColor:'#ffffff'
     }
 })
 export default Container;

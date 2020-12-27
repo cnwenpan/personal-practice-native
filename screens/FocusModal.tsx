@@ -8,16 +8,20 @@ import HTML from "react-native-render-html";
 
 class FocusModal extends Component<any> {
     state = {
-        restTime: new Date('2020-12-20 12:30:00').getTime()
+        restTime: moment('2020-12-20 12:30:00').millisecond()-30*60*1000
     }
 
-    private timer: NodeJS.Timeout | undefined = setInterval(() => {
-        const {restTime} = this.state;
-        this.setState({
-            restTime: restTime - 1000
-        })
-    }, 1000)
+    private timer: NodeJS.Timeout | undefined
 
+    componentDidMount() {
+        console.log(this.state.restTime)
+        this.timer = setInterval(() => {
+            const {restTime} = this.state;
+            this.setState({
+                restTime: restTime - 1000
+            })
+        }, 1000)
+    }
 
     componentWillUnmount() {
         if (this.timer) {
@@ -76,9 +80,10 @@ const styles = StyleSheet.create({
         paddingRight: 20,
     },
     exit_focus: {
+        marginLeft:20,
+        marginRight:20,
         position: 'absolute',
-        bottom: 50,
-        width: '100%'
+        bottom: 100,
     }
 })
 export default FocusModal;

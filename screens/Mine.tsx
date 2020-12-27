@@ -1,12 +1,19 @@
 import React, {Component} from 'react';
-import {View, Text, Button, StyleSheet} from 'react-native'
+import {View, Text, Button, StyleSheet, Image, Alert} from 'react-native'
 import Container from "../components/Container";
+import {removeLocalData} from "../utils";
 
 class Mine extends Component<any> {
 
     logout = () => {
-        const {navigation} = this.props;
-        navigation.navigate('login')
+        removeLocalData('token').then((res:any) => {
+            const {navigation} = this.props;
+            navigation.navigate('login')
+        }).catch(e=>{
+            Alert.alert(e)
+        })
+
+
     }
 
     render() {
@@ -23,8 +30,32 @@ class Mine extends Component<any> {
                         </Text>
                     </View>
                     <View style={styles.user}>
-                        <Text>1</Text>
+                        <View style={styles.user_base_info}>
+                            <View>
+                                <Image
+                                    style={styles.user_tx}
+                                    source={{
+                                        uri: 'http://jirancloud.com/tx.jpg',
+                                    }}
+                                />
+                            </View>
+                            <View style={styles.user_account}>
+                                <Text style={{fontSize: 18}}>温攀</Text>
+                                <Text style={{fontSize: 16, color: '#9a9a9a'}}>cnwenpan@gmail.com</Text>
+                            </View>
+                        </View>
+                        <View style={styles.task_info}>
+                            <View>
+                                <Text>120</Text>
+                                <Text style={{fontSize: 16, color: '#9a9a9a'}}>Create Task</Text>
+                            </View>
+                            <View>
+                                <Text>80</Text>
+                                <Text style={{fontSize: 16, color: '#9a9a9a'}}>Completed</Text>
+                            </View>
+                        </View>
                     </View>
+
                     <View style={styles.logout}>
                         <Button color="#cccccc" title="注销" onPress={this.logout}/>
                     </View>
@@ -38,25 +69,52 @@ const styles = StyleSheet.create({
     container: {
         position: "relative",
         minHeight: '100%',
-        borderColor:'#ffffff'
+        borderColor: '#ffffff',
     },
     header: {
-        borderBottomColor: '#e5e0e0',
-        borderBottomWidth: 1,
-        shadowColor:'#e5e0e0',
-        shadowOffset:{
-            width:4,
-            height:4,
-        },
-        shadowRadius:10
+        // borderBottomColor: '#f6f0f0',
+        // borderBottomWidth: 1,
+
     },
-    user:{
-        height:190,
-        borderColor:'#F9F9F9',
+    user: {
+        // marginLeft:16,
+        // marginRight:16,
+        padding: 24,
+        marginTop: 16,
+        height: 190,
+        backgroundColor: '#ffffff',
+        // borderColor:'#f9f9f9',
+        // borderWidth:1,
+        borderRadius: 2,
+        shadowColor: 'rgba(0, 0, 0, 0.01)',
+        shadowOffset: {
+            width: 1,
+            height: 1,
+        },
+        shadowRadius: 1,
+        elevation: 1,
+    },
+    user_base_info: {
+        flexDirection: "row",
+        justifyContent: "flex-start"
+    },
+    user_tx: {
+        width: 64,
+        height: 64,
+        borderRadius: 32,
+    },
+    user_account: {
+        marginLeft: 10,
+        marginTop: 10,
+    },
+    task_info: {
+        marginTop: 30,
+        flexDirection: "row",
+        justifyContent: "space-between"
     },
     logout: {
-        // position: "absolute",
-        // bottom: 60,
+        position: "absolute",
+        bottom: 100,
         width: '100%',
         paddingLeft: 24,
         paddingRight: 24,
