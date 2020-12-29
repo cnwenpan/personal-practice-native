@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {View, Text, TextInput, StyleSheet, Button, Alert} from 'react-native'
+import React, { Component } from 'react';
+import { View, Text, TextInput, StyleSheet, Button, Alert } from 'react-native'
 import md5 from 'md5'
 import * as Api from '../service/user'
-import {setLocalData} from "../utils";
+import { setLocalData } from "../utils";
 
 class Login extends Component<any> {
     state = {
@@ -13,7 +13,7 @@ class Login extends Component<any> {
     }
 
     handleToHome = () => {
-        const {account, password} = this.state;
+        const { account, password } = this.state;
         if (!account) {
             this.setState({
                 accountTip: '账号不能为空'
@@ -30,11 +30,11 @@ class Login extends Component<any> {
 
         const md5Password = md5(password)
 
-        Api.login({account, password: md5Password})
+        Api.login({ account, password: md5Password })
 
-            .then(async (res:any) => {
+            .then(async (res: any) => {
                 await setLocalData('token', res.token)
-                const {navigation} = this.props;
+                const { navigation } = this.props;
                 navigation.navigate('home')
             })
             .catch(e => {
@@ -45,7 +45,7 @@ class Login extends Component<any> {
     }
 
     handleToRegister = () => {
-        const {navigation} = this.props;
+        const { navigation } = this.props;
         navigation.navigate('register')
     }
 
@@ -64,7 +64,7 @@ class Login extends Component<any> {
     }
 
     render() {
-        const {accountTip, passwordTip} = this.state;
+        const { accountTip, passwordTip } = this.state;
         return (
             <View style={styles.container}>
                 <View style={styles.app_name}>
@@ -74,12 +74,12 @@ class Login extends Component<any> {
                 <View style={styles.login}>
                     <View style={styles.form_item}>
                         <Text style={styles.form_label}>用户名：</Text>
-                        <TextInput style={styles.input} onChangeText={this.handleAccountChange}/>
+                        <TextInput style={styles.input} onChangeText={this.handleAccountChange} />
                         {accountTip ? <Text style={styles.tip}>{accountTip}</Text> : null}
                     </View>
                     <View style={styles.form_item}>
                         <Text style={styles.form_label}>密码：</Text>
-                        <TextInput style={styles.input} onChangeText={this.handlePasswordChange}/>
+                        <TextInput style={styles.input} onChangeText={this.handlePasswordChange} />
                         {passwordTip ? <Text style={styles.tip}>{passwordTip}</Text> : null}
                     </View>
                 </View>
@@ -87,10 +87,10 @@ class Login extends Component<any> {
                     <Text onPress={this.handleToRegister}>注册</Text>
                     <Text>找回密码</Text>
                 </View>
-                <View style={{marginTop: 70}}>
+                <View style={{ marginTop: 70, backgroundColor: '#F96060' }}>
                     <Button
-                        title="登录"
-                        color="#F96060"
+                        title="登录1"
+                        // color="#F96060"
                         onPress={this.handleToHome}
                     />
                 </View>
