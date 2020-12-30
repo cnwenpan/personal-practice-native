@@ -18,6 +18,8 @@ import Diary from './screens/Diary'
 import Mine from './screens/Mine'
 import Editor from "./screens/Editor";
 import FocusModal from "./screens/FocusModal";
+import Start from './screens/Start';
+import Program_editor from './screens/Program_editor'
 
 function HomeTabs() {
     const Tab = createBottomTabNavigator();
@@ -62,6 +64,7 @@ function HomeTabs() {
             }}
 
         >
+
             <Tab.Screen name="Home" component={Home}/>
             <Tab.Screen name="Program" component={Program}/>
             <Tab.Screen name="Diary" component={Diary}/>
@@ -83,6 +86,10 @@ export default function App() {
                 <NavigationContainer>
 
                     <Stack.Navigator>
+                        <Stack.Screen name="start" component={Start}/>
+                        <Stack.Screen name="program_editor" component={Program_editor} options={{
+                            title:'编辑项目'
+                        }}/>
                         <Stack.Screen name="home" component={HomeTabs} options={{
                             header: () => null
                         }}/>

@@ -66,7 +66,7 @@ class TaskCheckItem extends Component<any> {
                         <Text style={{color: "#9b9b9b"}}> {data.programName}</Text>
                     </View>
                     <View style={styles.diary_btn}>
-                        <Text style={{color:'#ffffff'}} onPress={this.handleDiary}>细节</Text>
+                        <Text style={{color: '#ffffff'}} onPress={this.handleDiary}>细节</Text>
 
                     </View>
                     <View style={classnames([{style: styles.level, status: true}, {
@@ -74,7 +74,7 @@ class TaskCheckItem extends Component<any> {
                         style: styles[`level_${data.level}`],
                         status: true
                     }])}/>
-                    {data.is_repeat===0?<Text style={
+                    {data.is_repeat === 0 ? <Text style={
                         classnames([
                             {style: styles.time, status: true},
                             {
@@ -82,7 +82,7 @@ class TaskCheckItem extends Component<any> {
                                 status: true
                             }
                         ])
-                    }>{moment(data.start_time).format('YYYY-MM-DD')}</Text>:null}
+                    }>{moment(data.start_time).format('YYYY-MM-DD')}</Text> : null}
 
                 </View>
             </Pressable>
@@ -123,16 +123,16 @@ const styles = StyleSheet.create({
         top: '50%',
         marginTop: -12,
         height: 22,
-        lineHeight:18,
+        lineHeight: 18,
         width: 'auto',
 
-        backgroundColor:'#F4CA8F',
+        backgroundColor: '#F4CA8F',
         paddingLeft: 6,
         paddingRight: 6,
         position: 'absolute',
         borderColor: "#ece3e3",
         borderWidth: 1,
-        borderRadius:2,
+        borderRadius: 2,
     },
     level: {
         right: 0,

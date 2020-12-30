@@ -89,7 +89,7 @@ class Login extends Component<any> {
                 </View>
                 <View style={{ marginTop: 70, backgroundColor: '#F96060' }}>
                     <Button
-                        title="登录1"
+                        title="登录"
                         // color="#F96060"
                         onPress={this.handleToHome}
                     />

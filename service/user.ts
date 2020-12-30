@@ -11,7 +11,7 @@ export const login = (data: object) => {
 
 export const register = (data: object) => {
     return request({
-        url: `${host}/api/account/add`,
+        url: `${host}/api/account/register`,
         method: 'POST',
         data
     })

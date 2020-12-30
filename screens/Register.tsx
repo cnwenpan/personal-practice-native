@@ -1,6 +1,6 @@
-import { apisAreAvailable } from 'expo';
-import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet, Button, Alert } from 'react-native'
+import {apisAreAvailable} from 'expo';
+import React, {Component} from 'react';
+import {View, Text, TextInput, StyleSheet, Button, Alert} from 'react-native'
 // @ts-ignore
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import md5 from 'md5'
@@ -37,58 +37,94 @@ class Register extends Component<any> {
     }
 
     handleToLogin = () => {
-        const { navigation } = this.props;
+        const {navigation} = this.props;
         navigation.navigate('login')
     }
 
     handleSave = () => {
         if (this.checkForm()) {
-            const { form } = this.state;
+            const {form} = this.state;
             Api.register({
                 account: form.account,
                 accessCode: form.accessCode,
                 password: md5(form.password)
             }).then((res: any) => {
-                Alert.alert(res.msg)
+                Alert.alert('注册成功')
             })
         }
     }
 
     checkForm = () => {
-        const { form, tips } = this.state;
-        let result: boolean = true;
-        Object.keys(form).forEach((key, index) => {
+        const {form, tips} = this.state;
 
 
-            if (!form[key]) {
-                const account = {
-                    ...tips[key],
-                    visible: true
-                }
-                this.setState({
-                    tips: { ...tips, ...{ account } }
-                })
-                result = false;
-                return false
-            }
+        if (!form.account) {
+            tips.account.visible = true;
+            this.setState({
+                tips
+            })
+            return false
+        }else{
+            tips.account.visible = false;
+            this.setState({
+                tips
+            })
+        }
 
-        })
+        if (!form.accessCode) {
+            tips.accessCode.visible = true;
+            this.setState({
+                tips
+            })
+            return false
+        }else{
+            tips.accessCode.visible = false;
+            this.setState({
+                tips
+            })
+        }
 
-        return result
+        if (!form.password) {
+            tips.password.visible = true;
+            this.setState({
+                tips
+            })
+            return false
+        }else{
+            tips.password.visible = false;
+            this.setState({
+                tips
+            })
+        }
 
+        if (form.password !== form.rePassword) {
+            tips.rePassword.visible = true;
+            this.setState({
+                tips
+            })
+            return false
+        }else{
+            tips.rePassword.visible = false;
+            this.setState({
+                tips
+            })
+        }
+
+        return true
 
 
     }
 
     handleChange = (item: object) => {
-        const { form } = this.state;
+        console.log(item)
+        const {form} = this.state;
         this.setState({
-            form: { ...form, ...item }
+            form: {...form, ...item}
         })
     }
 
     render() {
-        const { tips } = this.state;
+        const {tips} = this.state;
 
         return (
 
@@ -100,35 +136,43 @@ class Register extends Component<any> {
                 <View style={styles.login}>
                     <View style={styles.form_item}>
                         <Text style={styles.form_label}>用户名：</Text>
-                        <TextInput onChange={(value) => { this.handleChange({ account: value }) }} style={styles.input} />
+                        <TextInput onChangeText={(value) => {
+                            this.handleChange({account: value})
+                        }} style={styles.input}/>
                     </View>
                     {tips.account.visible ? <Text style={styles.tip_info}>{tips.account.msg}</Text> : null}
                     <View style={styles.form_item}>
                         <Text style={styles.form_label}>邀请码：</Text>
-                        <TextInput style={styles.input} />
+                        <TextInput onChangeText={(value) => {
+                            this.handleChange({accessCode: value})
+                        }} style={styles.input}/>
                     </View>
-                    {tips.accessCode.visible ? <Text>{tips.accessCode.msg}</Text> : null}
+                    {tips.accessCode.visible ? <Text style={styles.tip_info}>{tips.accessCode.msg}</Text> : null}
                     <View style={styles.form_item}>
 
                         <Text style={styles.form_label}>密码：</Text>
-                        <TextInput style={styles.input} />
+                        <TextInput onChangeText={(value) => {
+                            this.handleChange({password: value})
+                        }} style={styles.input}/>
                     </View>
-                    {tips.password.visible ? <Text>{tips.password.msg}</Text> : null}
+                    {tips.password.visible ? <Text style={styles.tip_info}>{tips.password.msg}</Text> : null}
                     <View style={styles.form_item}>
                         <Text style={styles.form_label}>确认密码：</Text>
-                        <TextInput style={styles.input} />
+                        <TextInput onChangeText={(value) => {
+                            this.handleChange({rePassword: value})
+                        }} style={styles.input}/>
                     </View>
-                    {tips.rePassword.visible ? <Text>{tips.rePassword.msg}</Text> : null}
+                    {tips.rePassword.visible ? <Text style={styles.tip_info}>{tips.rePassword.msg}</Text> : null}
                 </View>
                 <View style={styles.register}>
                     <Text onPress={this.handleToLogin}>
-                        <Ionicons name="arrow-back" />
+                        <Ionicons name="arrow-back"/>
                         返回登录页</Text>
                 </View>
-                <View style={{ marginTop: 70, backgroundColor: '#F96060' }}>
+                <View style={{marginTop: 70, backgroundColor: '#F96060'}}>
                     <Button
                         title="保存"
-                        color="#ffffff"
+                        // color="#ffffff"
                         onPress={this.handleSave}
                     />
                 </View>

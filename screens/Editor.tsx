@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, Button, StyleSheet, TextInput,ToastAndroid} from 'react-native';
+import {View, Text, Button, StyleSheet, ScrollView, ToastAndroid} from 'react-native';
 import {CommonActions} from '@react-navigation/native';
 // @ts-ignore
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -10,7 +10,7 @@ import moment from "moment";
 class Editor extends Component<any> {
     state = {
         diaryText: '',
-        visible:false,
+        visible: false,
     }
 
     handleBack = () => {
@@ -24,7 +24,7 @@ class Editor extends Component<any> {
         })
     }
 
-    onChangeText = (value:any) => {
+    onChangeText = (value: any) => {
 
         this.setState({
             diaryText: value
@@ -57,7 +57,7 @@ class Editor extends Component<any> {
 
     render() {
         const {params} = this.props.route
-        const {diaryText,visible}=this.state;
+        const {diaryText, visible} = this.state;
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
@@ -81,29 +81,32 @@ class Editor extends Component<any> {
                         <Text style={styles.content_title}>{params.name}</Text>
 
                     </View>
-                    <View style={styles.text_input}>
-                        <Text style={{color: '#9e9e9e'}}>内容：</Text>
-                        <HTML source={{html: params.description}}/>
-                        {/*<TextInput*/}
-                        {/*    style={{*/}
-                        {/*        borderColor: '#eaeaea',*/}
-                        {/*        borderWidth: 1,*/}
-                        {/*        borderRadius: 5,*/}
-                        {/*        marginTop: 10,*/}
-                        {/*        textAlignVertical:'top',*/}
-                        {/*        padding:4,*/}
-                        {/*    }}*/}
-                        {/*    multiline*/}
-                        {/*    numberOfLines={10}*/}
-                        {/*    editable*/}
-                        {/*    maxLength={40}*/}
-                        {/*    onChangeText={text => this.onChangeText(text)}*/}
-                        {/*    value={diaryText}*/}
-                        {/*>*/}
 
-                        {/*</TextInput>*/}
+                        <View style={styles.text_input}>
+                            <ScrollView>
+                            <HTML source={{html: params.description}}/>
+                            </ScrollView>
+                            {/*<TextInput*/}
+                            {/*    style={{*/}
+                            {/*        borderColor: '#eaeaea',*/}
+                            {/*        borderWidth: 1,*/}
+                            {/*        borderRadius: 5,*/}
+                            {/*        marginTop: 10,*/}
+                            {/*        textAlignVertical:'top',*/}
+                            {/*        padding:4,*/}
+                            {/*    }}*/}
+                            {/*    multiline*/}
+                            {/*    numberOfLines={10}*/}
+                            {/*    editable*/}
+                            {/*    maxLength={40}*/}
+                            {/*    onChangeText={text => this.onChangeText(text)}*/}
+                            {/*    value={diaryText}*/}
+                            {/*>*/}
 
-                    </View>
+                            {/*</TextInput>*/}
+
+                        </View>
+
 
 
                     {/*<View style={{*/}
@@ -118,9 +121,9 @@ class Editor extends Component<any> {
                     {/*</View>*/}
 
                     <View style={styles.due_time}>
-                        <Text style={{lineHeight:28}}>截止日期：</Text>
+                        <Text style={{lineHeight: 28}}>截止日期：</Text>
                         <Text style={styles.show_time}>{moment(params.start_time).format('YYYY-MM-DD')}</Text>
-                        <Text style={{lineHeight:28,marginLeft:10}}>进度：{params.progress}%</Text>
+                        <Text style={{lineHeight: 28, marginLeft: 10}}>进度：{params.progress||0}%</Text>
                     </View>
                 </View>
 
@@ -161,7 +164,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         // width: 343,
         marginLeft: 32,
-        marginRight:32,
+        marginRight: 32,
     },
     pertain_info: {
         // flexDirection: 'row',
@@ -185,25 +188,25 @@ const styles = StyleSheet.create({
         paddingLeft: 25,
         paddingRight: 25,
         paddingTop: 16,
-        // paddingBottom: 25,
+        maxHeight:400,
     },
-    due_time:{
+    due_time: {
         backgroundColor: '#f4f4f4',
         lineHeight: 66,
         // paddingLeft: 25,
         marginTop: 20,
         flexDirection: "row",
-        paddingTop:20,
+        paddingTop: 20,
     },
-    show_time:{
-        height:28,
-        lineHeight:28,
-        borderRadius:4,
-        fontSize:14,
-        color:'#ffffff',
-        backgroundColor:'#6074F9',
-        paddingLeft:10,
-        paddingRight:10,
+    show_time: {
+        height: 28,
+        lineHeight: 28,
+        borderRadius: 4,
+        fontSize: 14,
+        color: '#ffffff',
+        backgroundColor: '#6074F9',
+        paddingLeft: 10,
+        paddingRight: 10,
     },
 })
 

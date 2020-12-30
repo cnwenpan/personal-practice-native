@@ -101,7 +101,7 @@ class Home extends Component<any> {
                     <View style={styles.task_container}>
                         {tabIndex === 1 && <View>
                             <Text style={styles.task_info}>{unDoList.length}/{repeatData.length}</Text>
-                            {repeatData.map((item: any, index) => <TaskCheckItem {...this.props} key={item.id} data={item}
+                            {repeatData.map((item: any, index) => <TaskCheckItem {...this.props} key={item.id+item.status} data={item}
                                                                                  onSuccess={this.query}/>)}
                         </View>}
                         {tabIndex === 2 && <View>

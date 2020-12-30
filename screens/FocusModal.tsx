@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 // import {StatusBar} from 'expo-status-bar';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {View, Text, StyleSheet, Button, useWindowDimensions} from 'react-native'
+import {View, Text, StyleSheet, Button, ScrollView} from 'react-native'
 import moment from "moment";
 import {CommonActions} from "@react-navigation/native";
 import HTML from "react-native-render-html";
 
 class FocusModal extends Component<any> {
     state = {
-        restTime: moment('2020-12-20 12:30:00').millisecond()-30*60*1000
+        restTime: moment('2020-12-20 12:30:00').millisecond() - 30 * 60 * 1000
     }
 
     private timer: NodeJS.Timeout | undefined
@@ -42,7 +42,9 @@ class FocusModal extends Component<any> {
                 <View style={styles.container}>
                     <Text style={styles.rest_time}>{moment(restTime).format('mm:ss')}</Text>
                     <View style={styles.info}>
-                        <HTML source={{html: params.description}}/>
+                        <ScrollView >
+                            <HTML source={{html: params.description}}/>
+                        </ScrollView>
                     </View>
                     {/*<Text style={styles.info}>{params.description}</Text>*/}
                     <View style={styles.exit_focus}>
@@ -78,11 +80,13 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         paddingLeft: 20,
         paddingRight: 20,
+        paddingBottom:260
     },
     exit_focus: {
-        marginLeft:20,
-        marginRight:20,
+        marginLeft: 20,
+        marginRight: 20,
         position: 'absolute',
+        right: 10,
         bottom: 100,
     }
 })

@@ -3,24 +3,23 @@ import {host} from './config'
 
 export const list =()=>{
     return request({
-        url:`${host}/api/diary/list`,
+        url:`${host}/api/program/list`,
         method:'POST',
     })
 }
-export const update =(data:object)=>{
+
+export const add =(data:any)=>{
     return request({
-        url:`${host}/api/diary/update`,
+        url:`${host}/api/program/add`,
+        method:'POST',
+        data,
+    })
+}
+
+export const update =(data:any)=>{
+    return request({
+        url:`${host}/api/program/update`,
         method:'POST',
         data
     })
 }
-
-export const add =(data:object)=>{
-    return request({
-        url:`${host}/api/diary/add`,
-        method:'POST',
-        data
-    })
-}
-
-
